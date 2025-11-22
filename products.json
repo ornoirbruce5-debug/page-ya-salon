@@ -1,8 +1,0 @@
-```json
-{
-  "products": [
-    { "name": "Sneakers", "price": 38000, "inStock": true, "image": "assets/images/sneakers.jpg" },
-    { "name": "Robe Rouge", "price": 45000, "inStock": false, "image": "assets/images/robe.jpg" }
-  ]
-}
-```
