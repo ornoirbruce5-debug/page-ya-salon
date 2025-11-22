@@ -1,94 +1,369 @@
 <!DOCTYPE html>
 <html lang="rw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique Digital Dropshipping | Or Noir</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Dark mode toggle -->
-  <div id="themeToggle" class="theme-toggle">🌙</div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menuiserie Moderne — Ububaji w’umwuga, futuristic & glowing</title>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <video src="assets/videos/background.mp4" autoplay muted loop playsinline id="bgVideo"></video>
-    <img src="assets/images/fallback.jpg" alt="fallback background" class="fallback-image">
-    <div class="hero-content">
-      <h1>Or Noir Boutique</h1>
-      <p>Urubuga rwa digital dropshipping media boutique mu Burundi</p>
-[13/10, 07:23] ChatGPT: <button id="ctaBtn">Dushorere kugiciro gito</button>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#14161a" />
+
+  <!-- Icons -->
+  <link rel="icon" href="assets/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Tawk.to live chat (simbuza PROPERTY_ID yawe) -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      // Shyiramo link yawe: https://embed.tawk.to/PROPERTY_ID/DEFAULT
+      s1.src='https://embed.tawk.to/PROPERTY_ID/1hxxxxxx';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- Progressive onboarding tour (first visit) -->
+  <div id="onboarding" class="onboarding hidden">
+    <div class="onboarding-step" data-step="1">
+      <h3>Murakaza neza kuri Menuiserie Moderne</h3>
+      <p>Reba imirimo yacu, igiciro estimated, kandi utegure rendez-vous vuba.</p>
+      <button class="btn primary" data-next>Ibikurikira</button>
     </div>
+    <div class="onboarding-step hidden" data-step="2">
+      <h3>Swipe carousel</h3>
+      <p>Shobora gusunika (swipe) ibikoresho ku telefoni, cyangwa ukande ku mapfundo kuri desktop.</p>
+      <button class="btn primary" data-next>Ibikurikira</button>
+    </div>
+    <div class="onboarding-step hidden" data-step="3">
+      <h3>PWA & Offline</h3>
+      <p>Shyira kuri telefoni (Install) kugira ngo urebe catalogue n’ama-devis offline.</p>
+      <button class="btn success" data-done>Ntangire Uruzinduko</button>
+    </div>
+  </div>
+
+  <!-- Dark mode toggle -->
+  <button id="darkToggle" class="dark-toggle" aria-label="Hindura mode">🌙</button>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav">
+    <button class="nav-btn" data-target="#hero" aria-label="Home">
+      <span class="icon hammer"></span><span class="label">Home</span>
+    </button>
+    <button class="nav-btn" data-target="#stock" aria-label="Stock">
+      <span class="icon saw"></span><span class="label">Stock</span>
+    </button>
+    <button class="nav-btn" data-target="#contact" aria-label="Contact">
+      <span class="icon wood"></span><span class="label">Contact</span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <header id="hero" class="hero">
+    <div class="aurora-bg">
+      <img src="assets/aurora-fallback.jpg" alt="Dreamy aurora gradient" class="aurora-fallback" />
+      <canvas id="auroraCanvas" aria-hidden="true"></canvas>
+      <div class="wood-overlay"></div>
+    </div>
+    <div class="hero-inner">
+      <h1 class="logo-glow">Menuiserie Moderne</h1>
+      <p class="subtitle">
+        Duhuza ubuhanga, ituze, n’ubwiza mu kubaka ibikoresho by’imbaho ku giciro gito—byuzuye umucyo n’ukwizera.
+      </p>
+      <div class="cta-wrap">
+        <a href="#stock" class="btn cta" id="ctaBtn">Reba Catalogue</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Trust badges -->
+  <section class="trust">
+    <div class="badge"><span class="badge-icon">🪵</span><span>Ububaji w’umwuga</span></div>
+    <div class="badge"><span class="badge-icon">🇧🇮</span><span>Made in Burundi</span></div>
+    <div class="badge"><span class="badge-icon">🌱</span><span>Eco-friendly wood</span></div>
   </section>
 
-  <!-- Stock Section -->
-  <section class="stock section">
-    <h2>Ibicuruzwa</h2>
-    <table id="stockTable">
-      <thead>
-        <tr><th>Image</th><th>Izina</th><th>Igiciro</th><th>Status</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <!-- Stock carousel -->
+  <section id="stock" class="stock">
+    <h2>Ibikoresho by’imbaho (Swipe/Click)</h2>
+    <div class="carousel" id="carousel">
+      <div class="card">
+        <img src="assets/stock/table.jpg" alt="Meza" />
+        <h3>Meza</h3>
+        <p>Meza y’umwuga, pastel glow, yihanganira imikoreshereze.</p>
+      </div>
+      <div class="card">
+        <img src="assets/stock/chair.jpg" alt="Intebe" />
+        <h3>Intebe</h3>
+        <p>Intebe zoroheje, zifite ergonomic design.</p>
+      </div>
+      <div class="card">
+        <img src="assets/stock/window.jpg" alt="Amadirisha" />
+        <h3>Amadirisha</h3>
+        <p>Amadirisha afite insulation nziza n’ubwiza.</p>
+      </div>
+      <div class="card">
+        <img src="assets/stock/door.jpg" alt="Inzugi" />
+        <h3>Inzugi</h3>
+        <p>Inzugi zikomeye, zifite finish ya kinyamwuga.</p>
+      </div>
+      <div class="card">
+        <img src="assets/stock/placard.jpg" alt="Placards" />
+        <h3>Placards</h3>
+        <p>Placards zifite imyanya myinshi, glowing accents.</p>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="btn" id="prevBtn">◀</button>
+      <button class="btn" id="nextBtn">▶</button>
+    </div>
   </section>
 
   <!-- Testimonials -->
-  <section class="testimonials section">
-    <h2>Abakiriya bacu bavuze</h2>
-    <div id="testList">
-      <!-- dynamically inserted testimonials -->
+  <section class="testimonials">
+    <h2>Ivyo abakiriya bavuga</h2>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="avatar animated"><img src="assets/avatars/a1.png" alt="Mukiriya 1" /></div>
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <blockquote>“Ibikoresho vyabo birakomeye cane! 🥰”</blockquote>
+      </div>
+      <div class="testi">
+        <div class="avatar animated"><img src="assets/avatars/a2.png" alt="Mukiriya 2" /></div>
+        <div class="stars">★★★★☆</div>
+        <blockquote>“Igiciro ciza, service yihuta. 👏”</blockquote>
+      </div>
+      <div class="testi">
+        <div class="avatar animated"><img src="assets/avatars/a3.png" alt="Mukiriya 3" /></div>
+        <div class="stars">★★★★★</div>
+        <blockquote>“Design ya moderne, glowing neza! ✨”</blockquote>
+      </div>
     </div>
   </section>
 
-  <!-- Daily Joke -->
-  <section class="joke section">
-    <h3>Urwenya rwa none:</h3>
-    <p id="jokeText">...</p>
-    <button id="newJokeBtn">Jya kubona urundi</button>
+  <!-- Joke spinner (Kirundi) -->
+  <section class="jokes">
+    <h2>Blagues z’umutima (Kirundi)</h2>
+    <p class="joke" id="jokeText">Kanda “Haha” kugira ubone urunana rushasha.</p>
+    <div class="joke-actions">
+      <button class="btn" id="spinJokeBtn">Haha 🤭</button>
+      <button class="btn ghost" id="clearJokesBtn">Siba local jokes</button>
+    </div>
+    <canvas id="confettiCanvas" class="confetti"></canvas>
   </section>
 
-  <!-- Chatbot Section -->
-  <section class="chatbot section">
-    <h2>Vugana na bot</h2>
-    <div id="chatWindow"></div>
-    <input type="text" id="chatInput" placeholder="Andika ubutumwa..." />
-    <button id="sendBtn">Ohereza</button>
+  <!-- Google Maps with custom pastel marker overlay -->
+  <section class="map">
+    <h2>Aho dukorera</h2>
+    <div class="map-wrap">
+      <!-- Simbuza coords yawe mu src ya iframe (lat/lng) -->
+      <iframe
+        title="Menuiserie Moderne Location"
+        src="https://www.google.com/maps?q=-3.3614,29.3599&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <!-- Pastel marker overlay (CSS, pointer-events: none) -->
+      <div class="pastel-marker" aria-hidden="true">
+        <div class="marker-pin"></div>
+        <div class="marker-pulse"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- Google Maps Embed -->
-  <section class="map section">
-    <iframe
-      src="https://maps.google.com/maps?q=-3.4590,29.378&z=15&output=embed"
-      width="100%" height="300" frameborder="0"></iframe>
+  <!-- WhatsApp autoresponder + QR -->
+  <section id="contact" class="contact">
+    <h2>Twandikire vuba</h2>
+    <p>WhatsApp autoresponder: kanda hepfo cyangwa ukoreshe QR.</p>
+    <div class="contact-grid">
+      <a class="btn whatsapp" id="waLink" target="_blank" rel="noopener">WhatsApp Devis</a>
+      <div class="qr-wrap animated-border">
+        <!-- Simbuza iyi image na assets/qr-whatsapp.png yawe -->
+        <img src="assets/qr-whatsapp.png" alt="QR WhatsApp" />
+      </div>
+    </div>
   </section>
 
-  <!-- Contact Form -->
-  <section class="contact section" id="contact">
-[13/10, 07:23] ChatGPT: <h2>Twandikire</h2>
-    <form action="https://formsubmit.co/ornoirbruce5@gmail.com" method="POST">
-      <input type="text" name="name" placeholder="Amazina" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Ubutumwa" required></textarea>
-      <button type="submit">Ohereza</button>
+  <!-- Interactive price estimator -->
+  <section class="pricing">
+    <h2>Igiciro estimated</h2>
+    <form id="priceForm" class="price-form">
+      <label>Uburebure (cm)
+        <input type="range" id="len" min="40" max="300" value="120" />
+        <span id="lenVal">120</span>
+      </label>
+      <label>Ubugari (cm)
+        <input type="range" id="wid" min="30" max="200" value="60" />
+        <span id="widVal">60</span>
+      </label>
+      <label>Ubwoko bw’imbaho
+        <select id="woodType">
+          <option value="pine">Pine (eco)</option>
+          <option value="oak">Oak (premium)</option>
+          <option value="teak">Teak (outdoor)</option>
+        </select>
+      </label>
+      <div class="price-result">
+        <span>Estimated:</span> <strong id="priceOut">BIF 0</strong>
+      </div>
     </form>
   </section>
 
-  <!-- WhatsApp support + Footer -->
-  <footer>
-    <div class="whatsapp-support">
-      <a href="https://wa.me/25771633859">WhatsApp Support</a>
-    </div>
-    <div class="footer-info">
-      <p>📞 +25771633859 | 📧 ornoirbruce5@gmail.com | 📍 Gihosha Gisandema</p>
-      <img src="whatsapp-qr.jpg" alt="QR WhatsApp" class="qr">
-      <div class="social-icons">
-        <!-- icons HTML e.g. <a href="#"><img src="..."></a> -->
+  <!-- Project gallery with before/after slider -->
+  <section class="gallery">
+    <h2>Imishinga yacu (Before → After)</h2>
+    <div class="ba-item">
+      <div class="ba-wrap">
+        <img src="assets/gallery/door-before.jpg" class="ba before" alt="Inzugi mbere" />
+        <img src="assets/gallery/door-after.jpg" class="ba after" alt="Inzugi nyuma" />
+        <input type="range" class="ba-slider" min="0" max="100" value="50" />
       </div>
-      <p>ORNOIR Studio | Duhindura ivyiyumviro tukabigira zahabu ya digital.</p>
+      <h3>Inzugi</h3>
     </div>
+    <div class="ba-item">
+      <div class="ba-wrap">
+        <img src="assets/gallery/table-before.jpg" class="ba before" alt="Meza mbere" />
+        <img src="assets/gallery/table-after.jpg" class="ba after" alt="Meza nyuma" />
+        <input type="range" class="ba-slider" min="0" max="100" value="50" />
+      </div>
+      <h3>Meza</h3>
+    </div>
+  </section>
+
+  <!-- Appointment scheduler -->
+  <section class="scheduler">
+    <h2>Tegura rendez-vous</h2>
+    <form id="apptForm" class="appt-form">
+      <label>Amazina
+        <input type="text" id="name" required />
+      </label>
+      <label>Itariki
+        <input type="date" id="date" required />
+      </label>
+      <label>Isaha
+        <input type="time" id="time" required />
+      </label>
+      <label>Icyo wipfuza
+        <input type="text" id="need" placeholder="Meza, inzugi, ..." required />
+      </label>
+      <div class="actions">
+        <button type="submit" class="btn primary">Ohereza kuri WhatsApp</button>
+        <button type="button" class="btn ghost" id="emailBtn">Ohereza Email</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Analytics dashboard (canvas charts) -->
+  <section class="analytics">
+    <h2>Analytics y’uruhinyuka</h2>
+    <div class="charts">
+      <canvas id="visitsChart" width="300" height="180" aria-label="Visits chart"></canvas>
+      <canvas id="quotesChart" width="300" height="180" aria-label="Quotes chart"></canvas>
+    </div>
+  </section>
+
+  <!-- Interactive storytelling timeline -->
+  <section class="timeline">
+    <h2>Uko twagiye dukura</h2>
+    <div class="milestones">
+      <div class="milestone">
+        <div class="dot glow"></div>
+        <div class="content"><strong>2019:</strong> Twatangije atelier yacu i Bujumbura.</div>
+      </div>
+      <div class="milestone">
+        <div class="dot glow"></div>
+        <div class="content"><strong>2021:</strong> Eco-friendly finishes & certifications.</div>
+      </div>
+      <div class="milestone">
+        <div class="dot glow"></div>
+        <div class="content"><strong>2024:</strong> PWA catalogue & AR placement.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic wood selector -->
+  <section class="wood-selector">
+    <h2>Hitamo ubwoko bw’imbaho</h2>
+    <div class="wood-options">
+      <button class="btn chip" data-wood="pine">Pine</button>
+      <button class="btn chip" data-wood="oak">Oak</button>
+      <button class="btn chip" data-wood="teak">Teak</button>
+    </div>
+    <p>Background texture/color scheme ihita ihinduka.</p>
+  </section>
+
+  <!-- Seasonal themes -->
+  <section class="season">
+    <h2>Seasonal theme</h2>
+    <p id="seasonText">Tema ihuza n’igihe cy’umwaka.</p>
+  </section>
+
+  <!-- Community showcase -->
+  <section class="community">
+    <h2>Community showcase</h2>
+    <div class="community-grid">
+      <img src="assets/community/c1.jpg" alt="Mukiriya 1" />
+      <img src="assets/community/c2.jpg" alt="Mukiriya 2" />
+      <img src="assets/community/c3.jpg" alt="Mukiriya 3" />
+      <img src="assets/community/c4.jpg" alt="Mukiriya 4" />
+    </div>
+  </section>
+
+  <!-- Offline toolkit (PWA install) -->
+  <section class="offline">
+    <h2>Offline toolkit</h2>
+    <p>Shyira iyi LP kuri telefoni yawe (Install) kugira ngo urebe catalogue n’ama-devis n’iyo internet itaboneka.</p>
+    <button id="installBtn" class="btn success">Install kuri telefoni</button>
+  </section>
+
+  <!-- AR placement tool (camera + draggable furniture) -->
+  <section class="ar">
+    <h2>AR placement</h2>
+    <p>Fungura camera, hanyuma udukuremo ameza/inzugi urebe uko bihagaze mu nzu yawe.</p>
+    <div class="ar-wrap">
+      <video id="camera" autoplay playsinline></video>
+      <div class="ar-controls">
+        <button class="btn chip" data-furn="table">Meza</button>
+        <button class="btn chip" data-furn="door">Inzugi</button>
+        <button class="btn chip" data-furn="chair">Intebe</button>
+        <button class="btn ghost" id="clearAR">Siba</button>
+      </div>
+      <div id="arStage" class="ar-stage" aria-label="Drag & resize furniture"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Contacts</h3>
+        <p>Tél/WhatsApp: +257 XXXXXXXX</p>
+        <p>Email: contact@menuiserie.mod</p>
+      </div>
+      <div>
+        <h3>Social</h3>
+        <p><a href="#" target="_blank" rel="noopener">Facebook</a> · <a href="#" target="_blank" rel="noopener">Instagram</a> · <a href="#" target="_blank" rel="noopener">TikTok</a></p>
+      </div>
+      <div>
+        <h3>QR</h3>
+        <div class="qr-wrap small animated-border">
+          <img src="assets/qr-site.png" alt="QR Website" />
+        </div>
+      </div>
+    </div>
+    <p class="copyright">© Menuiserie Moderne — Built with love in Burundi.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>
-```
