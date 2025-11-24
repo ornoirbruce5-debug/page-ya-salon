@@ -87,7 +87,7 @@ document.addEventListener('scroll', ()=>{
 
 // Joke spinner + localStorage + confetti
 const jokes = [
-  "Umwubaji ati: ‘Ntawuca igiti n’ishoka yabuze!’ 🤭",
+  "Umubaji ati: ‘Ntawuca igiti n’ishoka yabunzwe!’ 🤭",
   "Imbaho ziravuga: ‘Turakunda glowing finish!’ 😄",
   "Placard yaremye akajambo: ‘Ndafise imyanya menshi!’ 😂",
   "Intebe iti: ‘Wicare neza, umutekano mbere ya vyose!’ 😌",
@@ -139,7 +139,7 @@ clearJokesBtn.addEventListener('click', ()=> localStorage.removeItem('seenJokes'
 // Google Maps: WhatsApp link + QR area
 const waLink = document.getElementById('waLink');
 // Simbuza numero yawe & autoresponder message
-const waNumber = '25700000000'; // 257... (Bujumbura)
+const waNumber = '25771633859'; // 257... (Bujumbura)
 const waMsg = encodeURIComponent('Muraho! Nshaka devis y\'ibikoresho by\'imbaho. Izina: , Igihe: ');
 waLink.href = `https://wa.me/${waNumber}?text=${waMsg}`;
 waLink.textContent = 'WhatsApp Devis';
@@ -192,7 +192,7 @@ emailBtn.addEventListener('click', ()=>{
   const need = document.getElementById('need').value.trim();
   const subject = encodeURIComponent(`Rendez-vous: ${n}`);
   const body = encodeURIComponent(`Itariki: ${d} ${t}\nIcyo nkeneye: ${need}\nMerci!`);
-  window.location.href = `mailto:contact@menuiserie.mod?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:ornoirbruce5@gmail.com?subject=${subject}&body=${body}`;
 });
 
 // Analytics charts (vanilla canvas)
