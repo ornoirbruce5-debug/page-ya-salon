@@ -1,6 +1,6 @@
 const CACHE_NAME = 'mm-cache-v1';
 const ASSETS = [
-  '/', '/index.html', '/style.css', '/script.js', '/manifest.json',
+  '/index.html', '/style.css', '/script.js', '/manifest.json',
   '/assets/icon-192.png', '/assets/icon-512.png',
   '/assets/aurora-fallback.jpg',
   '/assets/stock/table.jpg', '/assets/stock/chair.jpg', '/assets/stock/window.jpg', '/assets/stock/door.jpg', '/assets/stock/placard.jpg',
@@ -16,23 +16,27 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
+      .catch(err => console.error("Failed to cache assets", err))
   );
-}); self.addEventListener('activate', event => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(keys.map(key => {
         if (key !== CACHE_NAME) return caches.delete(key);
       }))
-    ).then(() => self.clients.claim())
+    )
   );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
   const { request } = event;
 
-  // Network-first for navigation (HTML pages)
   if (request.mode === 'navigate') {
+    // Network-first for HTML
     event.respondWith(
       fetch(request)
         .then(response => {
@@ -45,17 +49,15 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // For static assets: cache-first with update
+  // Stale-while-revalidate for assets
   event.respondWith(
     caches.match(request).then(cached => {
-      return cached || fetch(request).then(response => {
+      const fetchPromise = fetch(request).then(response => {
         const copy = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         return response;
       });
+      return cached || fetchPromise;
     })
   );
 });
-```
-
----
