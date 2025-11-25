@@ -3,27 +3,27 @@
   "short_name": "Menuiserie",
   "description": "Urubuga rwerekana serivisi za Menuiserie Moderne",
   "lang": "fr",
-  "start_url": "/Jack-Menuisier/index.html",
-  "scope": "/Jack-Menuisier/",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f1116",
   "theme_color": "#14161a",
   "icons": [
     {
-      "src": "/Jack-Menuisier/assets/icon-192.png",
+      "src": "/assets/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/Jack-Menuisier/assets/icon-512.png",
+      "src": "/assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "screenshots": [
     {
-      "src": "/Jack-Menuisier/assets/screenshot1.png",
+      "src": "/assets/screenshot1.png",
       "sizes": "1080x1920",
       "type": "image/png"
     }
@@ -32,4 +32,3 @@
   "dir": "auto",
   "display_override": ["standalone", "fullscreen", "minimal-ui"]
 }
-```
